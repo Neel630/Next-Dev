@@ -1,0 +1,31 @@
+const express = require('express');
+const connectDB = require('./config/db');
+const cors = require('cors');
+
+const app = express();
+
+//Connect Database
+connectDB();
+
+//Enable cors
+app.use(cors());
+
+//Init Middleware
+app.use(express.json({ extended: false }));
+
+app.get('/', (req, res) => res.send('API RUNNING'));
+
+// app.get('/posts/api/posts/:id', (req, res) => {
+//   console.log('in Node Post by ID SERVER');
+//   res.send('IN POST NODE');
+// });
+
+//Defining Routes
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/profile', require('./routes/api/profile'));
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
