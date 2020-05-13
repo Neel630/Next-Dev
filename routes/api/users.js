@@ -15,14 +15,13 @@ const User = require('../../models/User');
 router.post(
   '/',
   [
-    check('name', 'Enter User Name')
-      .not()
-      .isEmpty(),
+    check('name', 'Enter User Name').not().isEmpty(),
     check('email', 'Please enter valid email').isEmail(),
-    check('password', 'Enter password of minimum length 6').isLength({ min: 6 })
+    check('password', 'Enter password of minimum length 6').isLength({
+      min: 6,
+    }),
   ],
   async (req, res) => {
-    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -44,14 +43,14 @@ router.post(
       const avatar = gravatar.url(email, {
         s: '200',
         r: 'pg',
-        d: 'mm'
+        d: 'mm',
       });
 
       user = new User({
         name,
         email,
         password,
-        avatar
+        avatar,
       });
 
       //Encrypt password
@@ -63,8 +62,8 @@ router.post(
       //Return json web token
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
 
       jwt.sign(
@@ -78,7 +77,6 @@ router.post(
         }
       );
     } catch (error) {
-      console.log(error);
       res.status(500).send('Server Error');
     }
   }

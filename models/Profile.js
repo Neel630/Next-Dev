@@ -3,31 +3,31 @@ const mongoose = require('mongoose');
 const ProfileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
   },
 
   company: {
-    type: String
+    type: String,
   },
   website: {
-    type: String
+    type: String,
   },
   location: {
-    type: String
+    type: String,
   },
   status: {
     type: String,
-    required: true
+    required: true,
   },
   skills: {
     type: [String],
-    required: true
+    required: true,
   },
   bio: {
-    type: String
+    type: String,
   },
   githubusername: {
-    type: String
+    type: String,
   },
 
   //experience Array
@@ -35,30 +35,30 @@ const ProfileSchema = new mongoose.Schema({
     {
       title: {
         type: String,
-        require: true
+        require: true,
       },
       company: {
         type: String,
-        require: true
+        require: true,
       },
       location: {
-        type: String
+        type: String,
       },
       from: {
         type: Date,
-        require: true
+        require: true,
       },
       to: {
-        type: Date
+        type: Date,
       },
       current: {
         type: Boolean,
-        default: false
+        default: false,
       },
       description: {
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   ],
 
   //Education array
@@ -66,56 +66,56 @@ const ProfileSchema = new mongoose.Schema({
     {
       school: {
         type: String,
-        require: true
+        require: true,
       },
       degree: {
         type: String,
-        require: true
+        require: true,
       },
       fieldofstudy: {
         type: String,
-        require: true
+        require: true,
       },
       from: {
         type: Date,
-        require: true
+        require: true,
       },
       to: {
-        type: Date
+        type: Date,
       },
       current: {
         type: Boolean,
-        default: false
+        default: false,
       },
       description: {
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   ],
 
   //Object of social media
   social: {
     youtube: {
-      type: String
+      type: String,
     },
     twitter: {
-      type: String
+      type: String,
     },
     facebook: {
-      type: String
+      type: String,
     },
     linkedin: {
-      type: String
+      type: String,
     },
-    instagram: {
-      type: String
-    }
+    github: {
+      type: String,
+    },
   },
 
   date: {
     type: Date,
-    default: Date.now()
-  }
+    default: Date.now(),
+  },
 });
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);

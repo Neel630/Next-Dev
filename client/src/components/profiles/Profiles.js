@@ -6,9 +6,8 @@ import { getProfiles } from '../../actions/profile';
 import ProfileItem from './ProfileItem';
 const Profiles = ({ match, getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
-    console.log(match.url);
     getProfiles();
-  }, [getProfiles]);
+  }, [getProfiles, match.url]);
 
   return (
     <Fragment>

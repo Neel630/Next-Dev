@@ -72,7 +72,7 @@ export const removeLike = (id) => async (dispatch) => {
 //Delete Post
 export const deletePost = (id) => async (dispatch) => {
   try {
-    const res = await axiox.delete(`api/posts/${id}`);
+    await axiox.delete(`api/posts/${id}`);
 
     dispatch({
       type: ACTION_TYPES.DELETE_POST,
@@ -145,7 +145,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 //Delete Comment
 export const deleteComment = (postId, commentId) => async (dispatch) => {
   try {
-    const res = await axiox.delete(`/api/posts/comment/${postId}/${commentId}`);
+    await axiox.delete(`/api/posts/comment/${postId}/${commentId}`);
 
     dispatch({
       type: ACTION_TYPES.REMOVE_COMMENT,

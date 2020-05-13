@@ -23,7 +23,6 @@ router.get('/me', auth, async (req, res) => {
 
     res.json(profile);
   } catch (error) {
-    console.log(error);
     res.status(500).send('Server Error');
   }
 });
@@ -57,7 +56,7 @@ router.post(
       youtube,
       facebook,
       twitter,
-      instagram,
+      github,
       linkedin,
     } = req.body;
 
@@ -81,10 +80,8 @@ router.post(
     if (youtube) profileFields.social.youtube = youtube;
     if (twitter) profileFields.social.twitter = twitter;
     if (facebook) profileFields.social.facebook = facebook;
-    if (instagram) profileFields.social.instagram = instagram;
+    if (github) profileFields.social.github = github;
     if (linkedin) profileFields.social.linkedin = linkedin;
-
-    console.log(profileFields.social);
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
@@ -106,7 +103,6 @@ router.post(
 
       return res.json(profile);
     } catch (error) {
-      console.error(error);
       res.status(500).send('Server Error');
     }
   }
@@ -120,7 +116,7 @@ router.get('/', async (req, res) => {
     const profiles = await Profile.find().populate('user', ['name', 'avatar']);
     res.json(profiles);
   } catch (error) {
-    console.error(error);
+    res.status(500).send('Server Error');
   }
 });
 
@@ -138,7 +134,6 @@ router.get('/user/:user_id', async (req, res) => {
 
     res.json(profile);
   } catch (error) {
-    console.error(error.message);
     if (error.kind == 'ObjectId') {
       return res.status(400).json({ msg: 'User not Found' });
     }
@@ -163,7 +158,7 @@ router.delete('/', auth, async (req, res) => {
 
     res.json({ msg: 'User Removed' });
   } catch (error) {
-    console.error(error);
+    res.status(500).send('Server Error');
   }
 });
 
@@ -216,7 +211,6 @@ router.put(
       await profile.save();
       res.json(profile);
     } catch (error) {
-      console.error(error.message);
       res.status(500).send('Server Error');
     }
   }
@@ -292,7 +286,6 @@ router.put(
       await profile.save();
       res.json(profile);
     } catch (error) {
-      console.error(error.message);
       res.status(500).send('Server Error');
     }
   }

@@ -21,7 +21,7 @@ const ProfileTop = ({
       <p>{location}</p>
       <div className='icons my-1'>
         {website && (
-          <a href={website} target='_blank' rel='noopener noreferrer'>
+          <a target='_blank' href={website} rel='noopener noreferrer'>
             <i className='fas fa-globe fa-2x'></i>
           </a>
         )}
@@ -49,9 +49,9 @@ const ProfileTop = ({
           </a>
         )}
 
-        {social && social.instagram && (
-          <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-instagram fa-2x'></i>
+        {social && social.github && (
+          <a href={social.github} target='_blank' rel='noopener noreferrer'>
+            <i className='fab fa-github fa-2x'></i>
           </a>
         )}
       </div>

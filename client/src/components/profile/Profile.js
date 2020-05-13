@@ -11,8 +11,6 @@ import { Link } from 'react-router-dom';
 
 const Profile = ({ match, getProfileById, profile, auth }) => {
   useEffect(() => {
-    console.log(match.url);
-    console.log(match.params.id);
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 

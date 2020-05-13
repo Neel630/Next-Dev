@@ -22,6 +22,10 @@ const ProfileExperience = ({
         <strong>Description: </strong>
         {description}
       </p>
+      <p>
+        <strong>Location: </strong>
+        {location}
+      </p>
     </div>
   );
 };

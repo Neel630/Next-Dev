@@ -12,14 +12,7 @@ const auth = require('../../middleware/auth');
 
 router.post(
   '/',
-  [
-    auth,
-    [
-      check('text', 'Text cannot be empty')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [auth, [check('text', 'Text cannot be empty').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -33,14 +26,13 @@ router.post(
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id
+        user: req.user.id,
       });
 
       const post = await newPost.save();
 
       res.json(post);
     } catch (error) {
-      console.error(error);
       res.status(500).send('Server Error');
     }
   }
@@ -56,7 +48,6 @@ router.get('/', auth, async (req, res) => {
 
     res.json(posts);
   } catch (error) {
-    console.error(error);
     res.status(500).send('Server Error');
   }
 });
@@ -75,7 +66,6 @@ router.get('/:post_id', auth, async (req, res) => {
 
     res.json(posts);
   } catch (error) {
-    console.error(error);
     if (error.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Post not found' });
     }
@@ -104,7 +94,6 @@ router.delete('/:post_id', auth, async (req, res) => {
 
     res.json({ msg: 'Post Deleted' });
   } catch (error) {
-    console.error(error);
     if (error.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Post not found' });
     }
@@ -126,8 +115,8 @@ router.put('/like/:post_id', auth, async (req, res) => {
 
     //Check if post is already been liked
     if (
-      posts.likes.filter(like => like.user.toString() === req.user.id).length >
-      0
+      posts.likes.filter((like) => like.user.toString() === req.user.id)
+        .length > 0
     ) {
       return res.status(400).json({ msg: 'Post already liked' });
     }
@@ -138,7 +127,6 @@ router.put('/like/:post_id', auth, async (req, res) => {
 
     res.json(posts.likes);
   } catch (error) {
-    console.error(error);
     if (error.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Post not found' });
     }
@@ -160,7 +148,7 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
 
     //Check if post is already been liked
     if (
-      posts.likes.filter(like => like.user.toString() === req.user.id)
+      posts.likes.filter((like) => like.user.toString() === req.user.id)
         .length === 0
     ) {
       return res.status(400).json({ msg: 'Post has not liked yet' });
@@ -169,7 +157,7 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
     //Get remove index
 
     const removeIndex = posts.likes
-      .map(like => like.user.toString())
+      .map((like) => like.user.toString())
       .indexOf(req.user.id);
 
     posts.likes.splice(removeIndex, 1);
@@ -178,7 +166,6 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
 
     res.json(posts.likes);
   } catch (error) {
-    console.error(error);
     if (error.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Post not found' });
     }
@@ -192,14 +179,7 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
 
 router.post(
   '/comment/:post_id',
-  [
-    auth,
-    [
-      check('text', 'Text cannot be empty')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [auth, [check('text', 'Text cannot be empty').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -215,7 +195,7 @@ router.post(
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id
+        user: req.user.id,
       });
 
       post.comments.unshift(newComment);
@@ -239,7 +219,7 @@ router.delete('/comment/:post_id/:comment_id', auth, async (req, res) => {
     //Find the comment
 
     const comment = post.comments.find(
-      comment => comment.id === req.params.comment_id
+      (comment) => comment.id === req.params.comment_id
     );
 
     //If comment exist or not
@@ -253,7 +233,7 @@ router.delete('/comment/:post_id/:comment_id', auth, async (req, res) => {
 
     //Get remove index
     const removeIndex = post.comments
-      .map(comment => comment.user.toString())
+      .map((comment) => comment.user.toString())
       .indexOf(req.user.id);
 
     post.comments.splice(removeIndex, 1);

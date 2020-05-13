@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
-import axios from 'axios';
 import propTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
@@ -11,15 +10,15 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     name: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
   });
 
-  const onChangeHandler = e =>
+  const onChangeHandler = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const { name, email, password, password2 } = formData;
 
-  const onSubmitHandler = async e => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (password !== password2) {
       setAlert('Password do not match', 'danger');
@@ -38,14 +37,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
       </p>
-      <form className='form' onSubmit={e => onSubmitHandler(e)}>
+      <form className='form' onSubmit={(e) => onSubmitHandler(e)}>
         <div className='form-group'>
           <input
             type='text'
             placeholder='Name'
             name='name'
             value={name}
-            onChange={e => onChangeHandler(e)}
+            onChange={(e) => onChangeHandler(e)}
           />
         </div>
         <div className='form-group'>
@@ -54,7 +53,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder='Email Address'
             name='email'
             value={email}
-            onChange={e => onChangeHandler(e)}
+            onChange={(e) => onChangeHandler(e)}
           />
           <small className='form-text'>
             This site uses Gravatar so if you want a profile image, use a
@@ -67,7 +66,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder='Password'
             name='password'
             value={password}
-            onChange={e => onChangeHandler(e)}
+            onChange={(e) => onChangeHandler(e)}
           />
         </div>
         <div className='form-group'>
@@ -76,7 +75,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder='Confirm Password'
             name='password2'
             value={password2}
-            onChange={e => onChangeHandler(e)}
+            onChange={(e) => onChangeHandler(e)}
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
@@ -94,8 +93,8 @@ Register.propTypes = {
   isAuthenticated: propTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-})
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
 export default connect(mapStateToProps, { setAlert, register })(Register);
