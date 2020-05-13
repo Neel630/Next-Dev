@@ -14,6 +14,7 @@ const Profile = ({ match, getProfileById, profile, auth }) => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 
+  console.log(profile);
   return (
     <Fragment>
       {profile.profile === null || profile.loading ? (
@@ -26,7 +27,7 @@ const Profile = ({ match, getProfileById, profile, auth }) => {
 
           {auth.isAuthenticated &&
             auth.loading === false &&
-            auth.user._id === profile.user._id && (
+            auth.user._id === profile.profile.user._id && (
               <Link to='/edit-profile' className='btn btn-dark'>
                 Edit Profile
               </Link>
