@@ -14,7 +14,6 @@ const Profile = ({ match, getProfileById, profile, auth }) => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 
-  console.log(profile);
   return (
     <Fragment>
       {profile.profile === null || profile.loading ? (
